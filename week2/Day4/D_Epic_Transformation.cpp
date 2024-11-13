@@ -8,22 +8,25 @@ const int M=1e9+7;
     
 void newbie(){
     int n,x;cin>>n;
-    vector<int>v(n);
-     map<ll, ll>mp;
-    ll mx = 0;
- 
+    map<ll, ll>mp;
     for(int i = 0; i < n; i++){
-        cin >> v[i];
-        mp[v[i]]++;
-        mx = max(mp[v[i]], mx);
+        cin >> x;
+        mp[x]++;
     }
-    if(mx > n / 2) {
-        cout << mx * 2 - n <<nl;
+    priority_queue<int> pq;
+    for(auto e : mp){
+        pq.push(e.second);
     }
-    else {
-        if(n % 2) cout << 1 <<nl;
-        else cout << 0 <<nl;
-    }  
+    while(!pq.empty()){
+        if(pq.size()<2)break;
+        int a=pq.top();pq.pop();
+        int b=pq.top();pq.pop();
+        a--,b--;
+        if(a>0)pq.push(a);
+        if(b>0)pq.push(b);
+    }
+    if(pq.empty())cout<<0<<nl;
+    else cout<<pq.top()<<nl;
 }
     
 int main()
