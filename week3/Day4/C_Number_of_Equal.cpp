@@ -8,20 +8,25 @@ const int M=1e9+7;
     
 void newbie(){
     int n,m;cin>>n>>m;
-    map<ll,ll>mp1,mp2;
-    for(int i=0;i<n;i++){
-        int x;cin>>x;
-        mp1[x]++;
+    vector<int>a(n),b(m);
+    for(int i=0;i<n;i++)cin>>a[i];
+    for(int i=0;i<m;i++)cin>>b[i];
+    int i=0,j=0;
+    ll ans=0;
+    while(i<n && j<m){
+        int cur=a[i],cnt1=0,cnt2=0;
+        while(i<n && a[i]==cur){
+            cnt1++;i++;
+        }
+        while(j<m && b[j]<cur){
+            j++;
+        }
+        while(j<m && b[j]==cur){
+            cnt2++;j++;
+        }
+        ans+=(1LL*cnt1*cnt2);
     }
-    for(int i=0;i<m;i++){
-        int x;cin>>x;
-        mp2[x]++;
-    }
-    ll sum=0;
-    for(auto e : mp1){
-        sum+=(mp1[e.first]*mp2[e.first]);
-    }
-    cout<<sum<<nl;
+    cout<<ans<<nl;
 }
     
 int main()
